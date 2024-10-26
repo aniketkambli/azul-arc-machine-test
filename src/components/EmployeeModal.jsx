@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
 
+
 const EmployeeForm = ({ employee, closeModal }) => {
-    const { addEmployee, editEmployee } = useEmployee();
+    const { handleAddEmployee, handleUpdateEmployee } = useEmployee();
     const [empFormInfo, setEmpFormInfo] = useState({
+        _id: '',
         name: '',
         email: '',
         dob: '',
@@ -50,15 +52,19 @@ const EmployeeForm = ({ employee, closeModal }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            if (employee) {
-                editEmployee(employee.id, empFormInfo);
-            } else {
-                addEmployee({ ...empFormInfo, id: Date.now() });
+            try {
+                if (employee) {
+                    await handleUpdateEmployee(employee._id, empFormInfo);
+                } else {
+                    await handleAddEmployee(empFormInfo);
+                }
+                closeModal(); 
+            } catch (error) {
+                console.error("Error submitting form:", error);
             }
-            closeModal();
         }
     };
 
