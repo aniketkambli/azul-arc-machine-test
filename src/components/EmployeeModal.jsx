@@ -71,7 +71,7 @@ const EmployeeForm = ({ employee, closeModal }) => {
     return (
         <div className="modal">
             <div className="modal-content">
-                <h2>{employee ? `Editing ${empFormInfo.name}` : 'Add Employee'}</h2>
+                <h2>{employee ? `Edit Employee` : 'Add Employee'}</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <input

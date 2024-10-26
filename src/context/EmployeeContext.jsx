@@ -23,14 +23,14 @@ export const EmployeeProvider = ({ children }) => {
         const updatedEmployee = await updateEmployee(id, employeeData);
         setEmployees((prevEmployees) => 
             prevEmployees.map((employee) => 
-                employee.id === id ? updatedEmployee : employee
+                employee._id === id ? updatedEmployee : employee
             )
         );
     };
 
     const handleDeleteEmployee = async (id) => {
         await deleteEmployee(id);
-        setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
+        setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee._id !== id));
     };
 
     return (
