@@ -9,6 +9,7 @@ const EmployeeForm = ({ employee, closeModal }) => {
     const [empFormInfo, setEmpFormInfo] = useState({
         _id: '',
         name: '',
+        age: '',
         email: '',
         dob: '',
         address: '',
@@ -21,6 +22,7 @@ const EmployeeForm = ({ employee, closeModal }) => {
         if (employee) {
             setEmpFormInfo({
                 name: employee.name,
+                age: employee.age,
                 email: employee.email,
                 dob: employee.dob.split('T')[0],
                 address: employee.address,
@@ -88,6 +90,16 @@ const EmployeeForm = ({ employee, closeModal }) => {
                             placeholder="Name"
                         />
                         {errors.name && <p className="error">{errors.name}</p>}
+                    </div>
+
+                    <div>
+                        <input
+                            type="text"
+                            name="age"
+                            value={empFormInfo.age}
+                            onChange={handleChange}
+                            placeholder="Age"
+                        />
                     </div>
 
                     <div>

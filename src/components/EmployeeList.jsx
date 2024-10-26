@@ -27,6 +27,7 @@ const EmployeeList = () => {
                     employees.map((employee) => (
                         <div key={employee._id} style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px', borderRadius: '5px' }}>
                             <h3><strong>Name:</strong>{employee.name}</h3>
+                            <p><strong>Age:</strong> {employee.age}</p>
                             <p><strong>Email:</strong> {employee.email}</p>
                             <p><strong>Date of Birth:</strong> {employee.dob || 'N/A'}</p>
                             <p><strong>Address:</strong> {employee.address || 'N/A'}</p>
