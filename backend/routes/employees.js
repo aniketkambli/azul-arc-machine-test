@@ -2,6 +2,8 @@ const express = require('express');
 const Employee = require('../models/Employee');
 const router = express.Router();
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -36,6 +38,19 @@ router.get('/', async (req, res) => {
     } catch (e) {
         res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+router.get('/uploads/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(__dirname, '../uploads', filename);
+
+    fs.stat(filePath, (err, stats) => {
+        if (err || !stats.isFile()) {
+            return res.status(404).send('File not found');
+        }
+
+        res.sendFile(filePath);
+    });
 });
 
 router.put('/:id', upload.single('photo'), async (req, res) => {

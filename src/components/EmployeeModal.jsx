@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
+import API_URL from '../api/url';
+
 
 
 const EmployeeForm = ({ employee, closeModal }) => {
@@ -17,7 +19,13 @@ const EmployeeForm = ({ employee, closeModal }) => {
 
     useEffect(() => {
         if (employee) {
-            setEmpFormInfo(employee);
+            setEmpFormInfo({
+                name: employee.name,
+                email: employee.email,
+                dob: employee.dob.split('T')[0],
+                address: employee.address,
+                photo: employee.photo
+            });
         }
     }, [employee]);
 
@@ -44,13 +52,11 @@ const EmployeeForm = ({ employee, closeModal }) => {
             newErrors.email = 'Email is invalid';
         }
 
-        if (empFormInfo.photo && !empFormInfo.photo.type.startsWith('image/')) {
-            newErrors.photo = 'Selected file must be an image';
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -114,6 +120,13 @@ const EmployeeForm = ({ employee, closeModal }) => {
                     </div>
 
                     <div>
+                    {employee && employee.photo && (
+                            <img
+                                    src={`${API_URL}/${employee.photo}`}
+                                alt="Employee"
+                                style={{ width: '100px', height: '100px' }}
+                            />
+                        )}
                         <input
                             type="file"
                             name="photo"

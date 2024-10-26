@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useEmployee } from '../context/EmployeeContext';
 import EmployeeForm from './EmployeeModal';
+import API_URL from '../api/url';
+
+
 
 const EmployeeList = () => {
     const { employees, handleDeleteEmployee } = useEmployee();
@@ -11,6 +14,7 @@ const EmployeeList = () => {
         setCurrentEmp(emp);
         setIsFormOpen(true);
     };
+
 
     return (
         <div style={{ marginLeft: '10px', marginRight: '10px' }}>
@@ -28,13 +32,14 @@ const EmployeeList = () => {
                             <p><strong>Address:</strong> {employee.address || 'N/A'}</p>
                             {employee.photo ? (
                                 <img
-                                    src={typeof employee.photo === 'string' ? employee.photo : URL.createObjectURL(employee.photo)}
+                                    src={`${API_URL}/${employee.photo}`}
                                     alt={employee.name}
                                     style={{ width: '100px', height: '100px' }}
                                 />
                             ) : (
                                 <p>No photo available</p>
                             )}
+                            <br/>
                             <button onClick={() => openModal(employee)}>Edit</button>
                             <button onClick={() => handleDeleteEmployee(employee._id)}>Delete</button>
                         </div>

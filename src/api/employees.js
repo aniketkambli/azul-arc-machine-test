@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_URL = 'https://accursed-spirit-9jgvvwq4493pgqr-5000.app.github.dev/api/employees';
+import API_URL from './url';
 
 
 export const getEmployees = async () => {
